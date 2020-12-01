@@ -1,10 +1,12 @@
 ---
 name: kentik-api
 
-# Run this workflow all on pushes to master
+# Run this workflow all on pushes and PRs to main
 on:
   push:
     paths: 'kentik_api_library/**'
+  pull_request:
+    branches: [ main ]
 
 jobs:
   python-versions-setup:
@@ -13,7 +15,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - id: set-matrix
-      run: echo "::set-output name=matrix::{\"python-version\":['3.7', '3.8']}"
+      run: echo "::set-output name=matrix::{\"python-version\":['3.4', '3.5', '3.6', '3.7', '3.8']}"
 
   # Static Analysis of the SDK and its code
   # Stuff like linters, etc.
