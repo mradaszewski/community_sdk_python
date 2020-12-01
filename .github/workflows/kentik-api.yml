@@ -1,10 +1,12 @@
 ---
 name: kentik-api
 
-# Run this workflow all on pushes to master
+# Run this workflow all on pushes and PRs to main
 on:
   push:
     paths: 'kentik_api_library/**'
+  pull_request:
+    branches: [ main ]
 
 jobs:
   python-versions-setup:
