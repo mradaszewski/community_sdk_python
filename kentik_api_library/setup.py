@@ -81,7 +81,7 @@ class MypyCmd(distutils.cmd.Command):
 
 setup(
     name="kentik-api",
-    version="0.0.1",
+    version="0.1.1",
     description="API Library to help using Kenti API",
     long_description=README,
     long_description_content_type="text/markdown",
