@@ -27,9 +27,9 @@ class API:
             # print("HERE "*5)
             return requests.post(url, auth=self._auth, headers=self.DEFAULT_HEADERS, json=_payload)
         if api_call.method == APICallMethods.PUT:
-            return requests.put(url, auth=self._auth, headers=self.DEFAULT_HEADERS, data=_payload)
+            return requests.put(url, auth=self._auth, headers=self.DEFAULT_HEADERS, json=_payload)
         if api_call.method == APICallMethods.DELETE:
-            return requests.delete(url, auth=self._auth, headers=self.DEFAULT_HEADERS, data=payload)
+            return requests.delete(url, auth=self._auth, headers=self.DEFAULT_HEADERS, json=payload)
         raise ValueError("Improper API call method")
 
     def _get_api_query_url(self, api_method: str):
