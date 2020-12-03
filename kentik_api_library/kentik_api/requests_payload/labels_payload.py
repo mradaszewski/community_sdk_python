@@ -63,7 +63,7 @@ class CreateResponse:
 class UpdateRequest:
 
     name: str
-    color: Optional[str] = None # @MM: todo: avoid serializing "color" when set to None
+    color: Optional[str] = None
 
 
 @dataclass()
