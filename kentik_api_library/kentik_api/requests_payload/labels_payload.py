@@ -2,7 +2,7 @@
 import json
 from typing import Optional, List, Any
 from dataclasses import dataclass
-
+from kentik_api.public.device_label import DeviceLabel
 
 @dataclass()
 class GetResponse:
@@ -21,6 +21,11 @@ class GetResponse:
         dic = json.loads(json_string)
         return cls(**dic)
 
+    def to_device_label(self) -> DeviceLabel:
+        return DeviceLabel(self.name, self.color, self.id, self.user_id, self.company_id, self.devices, self.created_date, self.updated_date)
+
+
+
 
 class GetAllResponse(List[GetResponse]):
 
@@ -32,6 +37,9 @@ class GetAllResponse(List[GetResponse]):
             l = GetResponse(**item)
             labels.append(l)
         return labels
+
+    def to_device_labels(self) -> List[DeviceLabel]:
+        return [l.to_device_label() for l in self]
 
 
 @dataclass()
@@ -58,6 +66,9 @@ class CreateResponse:
         dic = json.loads(json_string)
         return cls(**dic)
 
+    def to_device_label(self) -> DeviceLabel:
+        return DeviceLabel(self.name, self.color, self.id, self.user_id, self.company_id, self.devices, self.created_date, self.updated_date)
+
 
 @dataclass()
 class UpdateRequest:
@@ -82,6 +93,9 @@ class UpdateResponse:
     def from_json(cls, json_string):
         dic = json.loads(json_string)
         return cls(**dic)
+
+    def to_device_label(self) -> DeviceLabel:
+        return DeviceLabel(self.name, self.color, self.id, self.user_id, self.company_id, self.devices, self.created_date, self.updated_date)
 
 
 @dataclass()

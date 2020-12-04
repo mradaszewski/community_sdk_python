@@ -8,7 +8,7 @@ import sys
 import logging
 from typing import Tuple
 from kentik_api import kentik_api
-
+from kentik_api.public.device_label import DeviceLabel
 
 logging.basicConfig(level=logging.INFO)
 
@@ -44,18 +44,20 @@ def run_crud():
     client = kentik_api.for_com_domain(email, token)
 
     print("### CREATE")
-    created = client.labels.create("apitest-label-1", "#0000FF")
-    print(created)
+    label = DeviceLabel.for_create("apitest-label-1", "#0000FF")
+    created = client.labels.create(label)
+    print(created.__dict__)
     print()
 
     print("### UPDATE")
-    updated = client.labels.update(created.id, "apitest-label-one")
-    print(updated)
+    label = DeviceLabel.for_update("apitest-label-one")
+    updated = client.labels.update(created.id, label)
+    print(updated.__dict__)
     print()
 
     print("### GET")
     got = client.labels.get(created.id)
-    print(got)
+    print(got.__dict__)
     print()
 
     print("### DELETE")
@@ -63,5 +65,13 @@ def run_crud():
     print(deleted)
 
 
+def run_list():
+    email, token = get_auth_email_token()
+    client = kentik_api.for_com_domain(email, token)
+    labels = client.labels.get_all()
+    for l in labels:
+        print(l.__dict__)
+
 if __name__ == "__main__":
     run_crud()
+    # run_list()
