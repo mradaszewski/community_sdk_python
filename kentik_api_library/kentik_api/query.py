@@ -10,7 +10,6 @@ from kentik_api.auth.auth import KentikAuth
 from kentik_api.api_calls.api_call import APICall
 from kentik_api.api_calls.api_call import APICallMethods
 
-
 class KentikQuery:
     """ Allows sending authorized http requests to Kentik API """
 
@@ -18,7 +17,7 @@ class KentikQuery:
     BASE_API_COM_URL = "https://api.kentik.com/api"
     BASE_API_EU_URL = "https://api.kentik.eu/api"
 
-    def __init__(self, api_url: str, auth_email: str, auth_token: str):
+    def __init__(self, api_url: str, auth_email: str, auth_token: str) -> None:
         self._api_url = api_url
         self._auth = KentikAuth(auth_email, auth_token)
         self._logger = logging.getLogger(__name__)

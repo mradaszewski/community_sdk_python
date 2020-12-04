@@ -1,13 +1,13 @@
 from typing import Optional
 
 from kentik_api.api_calls import labels
-from kentik_api.api_resources.query import KentikQuery
+from kentik_api.query import KentikQuery
 from kentik_api.requests_payload import labels_payload
 
 class Labels:
     """ Exposes Kentik API operations related to device labels """
 
-    def __init__(self, query: KentikQuery) :
+    def __init__(self, query: KentikQuery) -> None:
         self._query = query
 
     def get_all(self) -> labels_payload.GetAllResponse:
