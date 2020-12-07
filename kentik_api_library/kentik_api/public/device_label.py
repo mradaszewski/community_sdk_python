@@ -2,16 +2,9 @@ from typing import List, Any, Optional
 
 class DeviceLabel:
 
-    @classmethod
-    def for_create(cls, name: str, color: str):
-        return cls(name, color, 0, "", "", [], "", "")
-
-    @classmethod
-    def for_update(cls, name: str, color: Optional[str] = None):
-        return cls(name, color, 0, "", "", [], "", "")
-
-    def __init__(self, name: str, color: Optional[str], id: int, user_id: str, company_id: str,
-                    devices: List[Any], created_date: str, updated_date: str) -> None:
+    def __init__(self, name: str, color: Optional[str] = None, id: Optional[int] = None, 
+                    user_id: Optional[str] = None, company_id: Optional[str] = None, devices: List[Any] = [], 
+                    created_date: Optional[str] = None, updated_date: Optional[str] = None) -> None:
         # read-write
         self.name = name
         self.color = color

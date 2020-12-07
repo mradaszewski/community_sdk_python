@@ -7,10 +7,10 @@ import requests
 
 # Local application imports
 from kentik_api.auth.auth import KentikAuth
-from kentik_api.api_calls.api_call import APICall
-from kentik_api.api_calls.api_call import APICallMethods
-
-class KentikQuery:
+from kentik_api.api_calls.api_call import APICall, APICallMethods
+from kentik_api.api_connection.api_call_response import APICallResponse
+ 
+class APIConnector:
     """ Allows sending authorized http requests to Kentik API """
 
     DEFAULT_HEADERS = {"Content-Type": "application/json"}
@@ -23,13 +23,13 @@ class KentikQuery:
         self._logger = logging.getLogger(__name__)
 
 
-    def send(self, api_call: APICall, payload: Optional[Dict[str, Any]] = None) -> requests.Response:
+    def send(self, api_call: APICall, payload: Optional[Dict[str, Any]] = None) -> APICallResponse:
         if payload is not None:
             payload = remove_keys_with_empty_values(payload)
 
         url = self._get_api_query_url(api_call.url_path)
         response : requests.Response
-
+ 
         if api_call.method == APICallMethods.GET:
             response = requests.get(url, auth=self._auth, headers=self.DEFAULT_HEADERS, params=payload)
         elif api_call.method == APICallMethods.POST:
@@ -39,11 +39,11 @@ class KentikQuery:
         elif api_call.method == APICallMethods.DELETE:
             response =  requests.delete(url, auth=self._auth, headers=self.DEFAULT_HEADERS, json=payload)
         else:
-            raise ValueError("Improper API call method")
+            raise ValueError(f"Improper API call method: {api_call.method}")
             
         self._validate_response(response)
 
-        return response
+        return APICallResponse(response.status_code, response.text)
 
 
     def _get_api_query_url(self, api_method: str) -> str:

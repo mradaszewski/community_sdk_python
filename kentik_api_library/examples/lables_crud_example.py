@@ -44,31 +44,31 @@ def run_crud():
     client = kentik_api.for_com_domain(email, token)
 
     print("### CREATE")
-    label = DeviceLabel.for_create("apitest-label-1", "#0000FF")
-    created = client.labels.create(label)
+    label = DeviceLabel("apitest-label-1", "#0000FF")
+    created = client.device_labels.create(label)
     print(created.__dict__)
     print()
 
     print("### UPDATE")
-    label = DeviceLabel.for_update("apitest-label-one")
-    updated = client.labels.update(created.id, label)
+    label.name = "apitest-label-one"
+    updated = client.device_labels.update(created.id, label)
     print(updated.__dict__)
     print()
 
     print("### GET")
-    got = client.labels.get(created.id)
+    got = client.device_labels.get(created.id)
     print(got.__dict__)
     print()
-
+    
     print("### DELETE")
-    deleted = client.labels.delete(created.id)
+    deleted = client.device_labels.delete(created.id)
     print(deleted)
 
 
 def run_list():
     email, token = get_auth_email_token()
     client = kentik_api.for_com_domain(email, token)
-    labels = client.labels.get_all()
+    labels = client.device_labels.get_all()
     for l in labels:
         print(l.__dict__)
 
