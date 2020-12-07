@@ -3,7 +3,8 @@ from typing import List, Any, Optional
 class DeviceLabel:
 
     def __init__(self, name: str, color: Optional[str] = None, id: Optional[int] = None, 
-                    user_id: Optional[str] = None, company_id: Optional[str] = None, devices: List[Any] = [], 
+                    user_id: Optional[str] = None, company_id: Optional[str] = None, 
+                    devices: Optional[List[Any]] = None, 
                     created_date: Optional[str] = None, updated_date: Optional[str] = None) -> None:
         # read-write
         self.name = name
